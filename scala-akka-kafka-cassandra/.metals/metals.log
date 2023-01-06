@@ -1,0 +1,18 @@
+2022.12.30 11:23:32 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/ewenbouquet/Documents/pro/Ewen-lunatech-data-ingestion-platform/scala-akka-kafka-cassandra/.metals/lsp.trace.json or /Users/ewenbouquet/Library/Caches/org.scalameta.metals/lsp.trace.json
+2022.12.30 11:23:32 INFO  logging to file /Users/ewenbouquet/Documents/pro/Ewen-lunatech-data-ingestion-platform/scala-akka-kafka-cassandra/.metals/metals.log
+2022.12.30 11:23:32 INFO  Started: Metals version 0.11.9 in workspace '/Users/ewenbouquet/Documents/pro/Ewen-lunatech-data-ingestion-platform/scala-akka-kafka-cassandra' for client Visual Studio Code 1.74.2.
+2022.12.30 11:23:34 INFO  time: initialize in 1.7s
+2022.12.30 11:23:36 WARN  Build server is not auto-connectable.
+2022.12.30 11:23:51 INFO  shutting down Metals
+2022.12.30 11:23:51 ERROR Unexpected error initializing serverorg.eclipse.lsp4j.jsonrpc.ResponseErrorException: Request window/showMessageRequest failed with message: Canceled
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleResponse(RemoteEndpoint.java:209)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:193)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:194)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:94)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:113)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.lang.Thread.run(Thread.java:829)
+
