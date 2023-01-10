@@ -1,6 +1,5 @@
-package lunatech.domain
+package lunatech.repositories.domain
 
-sealed trait Entity
 case class PersonEntity(id: Int, name: String) extends Entity {
   require(0 <= id, "person id must be positive or null")
   require(name.nonEmpty, "person name must not be empty")

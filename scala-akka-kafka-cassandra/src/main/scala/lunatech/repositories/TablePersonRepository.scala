@@ -3,7 +3,7 @@ package lunatech.repositories
 import com.datastax.oss.driver.api.core.cql.Row
 import akka.{ Done, NotUsed }
 import akka.stream.scaladsl.Source
-import lunatech.domain.PersonEntity
+import lunatech.repositories.domain.PersonEntity
 
 import scala.concurrent.Future
 

@@ -1,7 +1,8 @@
-package lunatech.services
+package lunatech.services.http
 
 import akka.http.scaladsl.model.HttpRequest
-import lunatech.Server.{ executionContext, http }
+import lunatech.Server._
+import lunatech.services.Service
 
 import scala.concurrent.Future
 

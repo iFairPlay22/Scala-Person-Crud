@@ -1,13 +1,9 @@
 package lunatech.controllers
 
-import io.circe._
-import io.circe.generic.auto._
-import io.circe.parser._
-import io.circe.syntax._
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.{ Http, HttpExt }
 import lunatech.Server.system
-import lunatech.services.HttpService
+import lunatech.services.http._
 
 object HttpController extends Controller {
 

@@ -1,3 +1,3 @@
 package lunatech
 
-class PersonControllerTest {}
+class PersonControllerTest extends AnyWordSpec with Matchers with ScalatestRouteTest {}

@@ -1,13 +1,13 @@
-package lunatech.services
+package lunatech.services.kafka
 
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
-import lunatech.Server.executionContext
-import lunatech.domain.PersonEntity
-import lunatech.services.kafka.AppKafkaProducer
-import lunatech.services.kafka.AppKafkaConsumer
+
+import lunatech.repositories.domain._
+import lunatech.Server._
+import lunatech.services.Service
 
 import scala.concurrent.Future
 

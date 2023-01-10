@@ -4,15 +4,9 @@ import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
-import lunatech.throwable.custom.KafkaConsumerException
+import lunatech.controllers.throwable.custom.KafkaConsumerException
 import org.apache.kafka.clients.consumer.KafkaConsumer
-import org.apache.kafka.clients.consumer.ConsumerConfig.{
-  BOOTSTRAP_SERVERS_CONFIG,
-  CLIENT_ID_CONFIG,
-  GROUP_ID_CONFIG,
-  KEY_DESERIALIZER_CLASS_CONFIG,
-  VALUE_DESERIALIZER_CLASS_CONFIG
-}
+import org.apache.kafka.clients.consumer.ConsumerConfig._
 import org.apache.kafka.common.serialization.StringDeserializer
 
 import java.time.Duration

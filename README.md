@@ -1,18 +1,43 @@
-# Data Ingestion Platform
+# Project
 
-Please use this readme as your projects readme. You can find instructions for
-the challenge in the [`INSTRUCTIONS.pdf`](INSTRUCTIONS.pdf) file.
+Simple project with Scala, Akka, Cassandra, Kafka and Circe.
 
-## LA MetroAPI
+## Setup the environment
 
-Unfortunatelly, LA MetroAPI is no longer available. We, nonetheless, provide a docker container
-that generates random data to be used along this exercise.
+Launch the services:
 
-To pull and run this docker image, do:
+    docker-compose up
 
-```sh
-$ docker pull ghcr.io/lunatech-labs/lunatech-data-ingestion-platform-metroapi:1.0
-$ docker run -p "3000:3000" ghcr.io/lunatech-labs/lunatech-data-ingestion-platform-metroapi:1.0
-```
+Start the project:
 
-After the container is running properly, you can access its data at [http://localhost:3000/api](http://localhost:3000/api)
+    sbt run
+
+## Interacting with the sample
+
+Create the database:
+
+    curl --location --request POST 'http://127.0.0.1:8080/init-db'
+
+Insert a person:
+
+    curl --location --request POST 'http://127.0.0.1:8080/person?name={PersonName}'
+
+Edit a person:
+
+    curl --location --request PUT 'http://127.0.0.1:8080/person/{PersonId}?name={PersonName}'
+
+Delete a person:
+
+    curl --location --request DELETE 'http://127.0.0.1:8080/person/{PersonId}'
+
+Get a user:
+
+    curl --location --request GET 'http://127.0.0.1:8080/person/{PersonId}'
+
+Get all the users:
+
+    curl --location --request GET 'http://127.0.0.1:8080/person'
+
+Ping google:
+
+    curl --location --request GET 'http://127.0.0.1:8080/http-request'

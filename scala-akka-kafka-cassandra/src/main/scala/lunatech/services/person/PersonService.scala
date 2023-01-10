@@ -1,18 +1,19 @@
-package lunatech.services
+package lunatech.services.person
 
 import akka.stream.scaladsl.Sink
-import lunatech.Server.executionContext
-import lunatech.Server.http.system
 import lunatech.controllers.requests._
 import lunatech.controllers.responses._
-import lunatech.domain.PersonEntity
-import lunatech.repositories.TablePersonRepository
+import lunatech.controllers.responses.mappers._
+import lunatech.repositories._
+import lunatech.repositories.domain._
+import lunatech.Server._
+import lunatech.services.Service
 
 import scala.concurrent.Future
 
 object PersonService extends Service {
 
-  def createPerson(req: CreatePersonRequest): Future[CreatePersonResponse] =
+  def createPerson(name: String): Future[PersonEntity] =
     for {
       id <- TablePersonRepository
         .count()
@@ -22,7 +23,7 @@ object PersonService extends Service {
             new IllegalStateException("Can't create person: count() failure")
           )
         }
-      person <- Future(PersonEntity(id, req.name))
+      person <- Future(PersonEntity(id, name))
       _ <- TablePersonRepository
         .insert(person)
         .recover { s_err =>
@@ -31,14 +32,21 @@ object PersonService extends Service {
             new IllegalStateException("Can't create person: unexpected error")
           )
         }
-    } yield CreatePersonResponse(person)
+    } yield person
 
-  def editPerson(req: EditPersonRequest): Future[EditPersonResponse] = {
+  def createPersonResponse(req: CreatePersonRequest): Future[CreatePersonResponse] =
+    for {
+      person <- createPerson(req.name)
+    } yield CreatePersonResponse {
+      PersonResponseMapper.entityToResponse(person)
+    }
 
-    val person = PersonEntity(req.id, req.name)
+  def editPerson(id: Int, name: String): Future[PersonEntity] = {
+
+    val person = PersonEntity(id, name)
     for {
       maybePerson <- TablePersonRepository
-        .selectOne(req.id)
+        .selectOne(id)
         .recover { s_err =>
           recoverFunction(
             s_err,
@@ -58,11 +66,18 @@ object PersonService extends Service {
             new NoSuchElementException("Can't edit person: id not exists")
           )
         )
-    } yield EditPersonResponse(person)
+    } yield person
   }
 
+  def editPersonResponse(req: EditPersonRequest): Future[EditPersonResponse] =
+    for {
+      person <- editPerson(req.id, req.name)
+    } yield EditPersonResponse {
+      PersonResponseMapper.entityToResponse(person)
+    }
+
   // TODO
-  def getPersons(req: GetPersonsRequest): Future[GetPersonsResponse] =
+  def getPersons(): Future[Seq[PersonEntity]] =
     for {
       persons <- TablePersonRepository
         .selectAll()
@@ -74,12 +89,19 @@ object PersonService extends Service {
             new IllegalStateException("Can't get person: unexpected error")
           )
         )
-    } yield GetPersonsResponse(persons)
+    } yield persons
 
-  def getPerson(req: GetPersonRequest): Future[GetPersonResponse] =
+  def getPersonsResponse(req: GetPersonsRequest): Future[GetPersonsResponse] =
+    for {
+      persons <- getPersons()
+    } yield GetPersonsResponse {
+      persons.map(person => PersonResponseMapper.entityToResponse(person))
+    }
+
+  def getPerson(id: Int): Future[PersonEntity] =
     for {
       maybePerson <- TablePersonRepository
-        .selectOne(req.id)
+        .selectOne(id)
         .recover { s_err =>
           recoverFunction(
             s_err,
@@ -91,17 +113,32 @@ object PersonService extends Service {
           throw new NoSuchElementException("Can't get person: unassigned id")
         maybePerson.get
       }
-    } yield GetPersonResponse(person)
+    } yield person
 
-  def deletePerson(req: DeletePersonRequest): Future[DeletePersonResponse] =
+  def getPersonResponse(req: GetPersonRequest): Future[GetPersonResponse] =
+    for {
+      person <- getPerson(req.id)
+    } yield GetPersonResponse {
+      PersonResponseMapper.entityToResponse(person)
+    }
+
+  def deletePerson(id: Int): Future[Int] =
     for {
       _ <- TablePersonRepository
-        .delete(req.id)
+        .delete(id)
         .recover(s_err =>
           recoverFunction(
             s_err,
             new NoSuchElementException("Can't delete person: unassigned id")
           )
         )
-    } yield DeletePersonResponse(req.id)
+    } yield id
+
+  def deletePersonResponse(req: DeletePersonRequest): Future[DeletePersonResponse] =
+    for {
+      id <- deletePerson(req.id)
+    } yield DeletePersonResponse {
+      id
+    }
+
 }

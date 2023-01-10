@@ -5,18 +5,11 @@ import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
-import akka.http.scaladsl.server.Directives
 
 import lunatech.Server.executionContext
-import lunatech.throwable.custom.KafkaProducerException
+import lunatech.controllers.throwable.custom.KafkaProducerException
 import org.apache.kafka.clients.producer.{ Callback, KafkaProducer, ProducerRecord, RecordMetadata }
-import org.apache.kafka.clients.producer.ProducerConfig.{
-  ACKS_CONFIG,
-  BOOTSTRAP_SERVERS_CONFIG,
-  CLIENT_ID_CONFIG,
-  KEY_SERIALIZER_CLASS_CONFIG,
-  VALUE_SERIALIZER_CLASS_CONFIG
-}
+import org.apache.kafka.clients.producer.ProducerConfig._
 import org.apache.kafka.common.serialization.StringSerializer
 
 import scala.concurrent.{ Future, Promise }

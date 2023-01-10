@@ -4,12 +4,12 @@ import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.server.{ Directives, Route }
 import akka.http.scaladsl.{ Http, HttpExt }
-import lunatech.controllers.{ HttpController, PersonController }
-import lunatech.services.KafkaService
-import lunatech.throwable.AppExceptionHandler.exceptionHandler
 
 import scala.concurrent.ExecutionContextExecutor
 import scala.io.StdIn
+
+import lunatech.controllers._
+import lunatech.services.kafka.KafkaService
 
 object Server extends Directives {
 

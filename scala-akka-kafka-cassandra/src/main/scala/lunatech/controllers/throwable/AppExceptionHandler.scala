@@ -1,4 +1,4 @@
-package lunatech.throwable
+package lunatech.controllers.throwable
 
 import akka.http.scaladsl.model.{ HttpResponse, StatusCode }
 import akka.http.scaladsl.model.StatusCodes.{ InternalServerError, NoContent }
@@ -29,7 +29,7 @@ object AppExceptionHandler {
         answer(InternalServerError, err, withMessage = true)
 
       case err: Throwable =>
-        answer(InternalServerError, err, withMessage = false)
+        answer(InternalServerError, err)
     }
 
 }

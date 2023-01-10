@@ -13,7 +13,7 @@ import lunatech.Server.{ executionContext, system }
 
 import scala.concurrent.Future
 
-trait Repository {
+abstract class Repository {
 
   // keyspace universe
   val keyspace_universe_name = "universe"
